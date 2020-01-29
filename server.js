@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', function (req, res) {
-  res.send("I'm ready");
+  res.send("I'm ready\nVersion 0.0.1");
 });
 
 app.get('/game', function (req, res) {
