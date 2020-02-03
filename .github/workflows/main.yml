@@ -6,22 +6,23 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    steps:
 
-  - name: Git clone my repo
-    uses: actions/checkout@v1
-  
-  - name: Docker Login
-    uses: Azure/docker-login@v1
-    with:
-      # Container registry username
-      username: ${{ DOCKER_USERNAME }}
-      # Container registry password
-      password: ${{ DOCKER_PASSWORD }} 
-      # Container registry server url
-      login-server: 
-    
-  - name: Build and push
-        run: |
-          docker build -t app2 .
-          docker tag app2:latest omegalab/test-ci-server:latest
-          docker push omegalab/test-ci-server:latest
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+      
+      - name: Docker Login
+        uses: Azure/docker-login@v1
+        with:
+          # Container registry username
+          username: ${{ DOCKER_USERNAME }}
+          # Container registry password
+          password: ${{ DOCKER_PASSWORD }} 
+          # Container registry server url
+          login-server: 
+        
+      - name: Build and push
+          run: |
+            docker build -t app2 .
+            docker tag app2:latest omegalab/test-ci-server:latest
+            docker push omegalab/test-ci-server:latest
