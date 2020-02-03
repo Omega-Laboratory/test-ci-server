@@ -19,7 +19,7 @@ jobs:
           # Container registry password
           password: ${{ secrets.DOCKER_PASSWORD }} 
           # Container registry server url
-          login-server: 
+          # login-server: 
         
       - name: Build and push
         run: |
