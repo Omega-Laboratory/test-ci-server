@@ -33,6 +33,6 @@ jobs:
         run: |
           docker build -t app2 .
           docker tag app2:latest omegalab/test-ci-server:latest
-          docker tag app2:${{ VERSION }} omegalab/test-ci-server:${{ steps.get_version.VERSION }}
+          docker tag app2:${{ steps.get_version.outputs.VERSION }} omegalab/test-ci-server:${{ steps.get_version.VERSION }}
         #  docker push omegalab/test-ci-server:latest
         #  docker push omegalab/test-ci-server:${{ github.ref }}
