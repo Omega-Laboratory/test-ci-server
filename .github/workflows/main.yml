@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on: 
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -10,17 +13,17 @@ jobs:
 
       - name: Git clone my repo
         uses: actions/checkout@v1
-      
+
       - name: Docker Login
         uses: Azure/docker-login@v1
         with:
           # Container registry username
           username: ${{ secrets.DOCKER_USERNAME }}
           # Container registry password
-          password: ${{ secrets.DOCKER_PASSWORD }} 
+          password: ${{ secrets.DOCKER_PASSWORD }}
           # Container registry server url
-          # login-server: 
-        
+          # login-server:
+
       - name: Build and push
         run: |
           docker build -t app2 .
