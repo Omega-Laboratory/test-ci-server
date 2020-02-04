@@ -1,9 +1,9 @@
 name: CI
 
-on: 
-  push:
-    tags:
-      - 'v*'
+on: [push]
+  # push:
+  #   tags:
+  #     - 'v*'
 
 jobs:
   build:
@@ -28,6 +28,7 @@ jobs:
         run: |
           docker build -t app2 .
           docker tag app2:latest omegalab/test-ci-server:latest
-          docker tag app2:${{ github.ref }} omegalab/test-ci-server:${{ github.ref }}
-          docker push omegalab/test-ci-server:latest
-          docker push omegalab/test-ci-server:${{ github.ref }}
+          echo ${{ github.refs.tag }} ${{ github.ref.refs.tags}}
+        #  docker tag app2:${{ github.ref }} omegalab/test-ci-server:${{ github.ref }}
+        #  docker push omegalab/test-ci-server:latest
+        #  docker push omegalab/test-ci-server:${{ github.ref }}
