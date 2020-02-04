@@ -14,6 +14,10 @@ jobs:
       - name: Git clone my repo
         uses: actions/checkout@v1
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
       - name: Docker Login
         uses: Azure/docker-login@v1
         with:
@@ -28,7 +32,6 @@ jobs:
         run: |
           docker build -t app2 .
           docker tag app2:latest omegalab/test-ci-server:latest
-          echo ${{ github.refs.tag }} ${{ github.ref.refs.tags}}
         #  docker tag app2:${{ github.ref }} omegalab/test-ci-server:${{ github.ref }}
         #  docker push omegalab/test-ci-server:latest
         #  docker push omegalab/test-ci-server:${{ github.ref }}
