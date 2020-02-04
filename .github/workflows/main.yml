@@ -1,9 +1,9 @@
 name: CI
 
-on: [push]
-  # push:
-  #   tags:
-  #     - 'v*'
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
       - name: Get the version
         id: get_version
         run: | 
-          echo ::set-output name=VERSION::${ github.ref#refs/tags/ }
+          echo ::set-output name=VERSION::${ GITHUB_REF#refs/tags/v }
 
       - name: Docker Login
         uses: Azure/docker-login@v1
@@ -31,9 +31,8 @@ jobs:
 
       - name: Build and push
         run: |
-          echo ${{ steps.get_version.outputs }}
-        #  docker build -t app2 .
-        #  docker tag app2:latest omegalab/test-ci-server:latest
-        #  docker tag app2:${{ steps.get_version.outputs.VERSION }} omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
-        #  docker push omegalab/test-ci-server:latest
-        #  docker push omegalab/test-ci-server:${{ github.ref }}
+          docker build -t app2 .
+          docker tag app2:latest omegalab/test-ci-server:latest
+          docker tag app2:${{ steps.get_version.outputs.VERSION }} omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
+          docker push omegalab/test-ci-server:latest
+          docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
