@@ -31,7 +31,7 @@ jobs:
 
       - name: Build and push
         run: |
-          echo ${{ steps.get_version.outputs.VERSION }}
+          echo ${{ steps.get_version.outputs }}
         #  docker build -t app2 .
         #  docker tag app2:latest omegalab/test-ci-server:latest
         #  docker tag app2:${{ steps.get_version.outputs.VERSION }} omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
