@@ -16,8 +16,9 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: |
+        run: | 
           echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+          echo $VERSION
 
       - name: Docker Login
         uses: Azure/docker-login@v1
