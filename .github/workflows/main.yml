@@ -18,7 +18,6 @@ jobs:
         id: get_version
         run: | 
           echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-          echo $VERSION
 
       - name: Docker Login
         uses: Azure/docker-login@v1
@@ -34,6 +33,6 @@ jobs:
         run: |
           docker build -t app2 .
           docker tag app2:latest omegalab/test-ci-server:latest
-        #  docker tag app2:${{ github.ref }} omegalab/test-ci-server:${{ github.ref }}
+          docker tag app2:${{ VERSION }} omegalab/test-ci-server:${{ steps.get_version.VERSION }}
         #  docker push omegalab/test-ci-server:latest
         #  docker push omegalab/test-ci-server:${{ github.ref }}
