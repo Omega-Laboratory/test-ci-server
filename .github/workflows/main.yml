@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Git clone my repo
+      - name: Git clone repo
         uses: actions/checkout@v1
 
-      - name: Get the version
+      - name: Get the version from tag
         id: get_version
         run: | 
-          echo ::set-output name=VERSION::${GITHUB_REF##*/}
+          echo ::set-output name=VERSION::${GITHUB_REF##v*/}
 
       - name: Docker Login
         uses: Azure/docker-login@v1
@@ -29,7 +29,7 @@ jobs:
           # Container registry server url
           # login-server:
 
-      - name: Build and push
+      - name: Build, set tag and push
         run: |
           docker build -t app2 .
           docker tag app2:latest omegalab/test-ci-server:latest
