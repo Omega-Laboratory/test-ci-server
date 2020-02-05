@@ -42,10 +42,5 @@ jobs:
 
       - name: Push to Docker Hub
         run: |
-<<<<<<< HEAD
-          docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
-          docker push omegalab/test-ci-server:latest
-=======
           docker push omegalab/${{ steps.get_env.outputs.NAME }}:${{ steps.get_env.outputs.VERSION }}
           docker push omegalab/${{ steps.get_env.outputs.NAME }}:latest
->>>>>>> master
