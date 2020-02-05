@@ -1,9 +1,11 @@
-name: CI
+name: Pre-release build and push to Docker Hub
 
 on:
   push:
+    branches-ignore:
+      - master
     tags:
-      - 'v*'
+      - 'v*-rc*'
 
 jobs:
   build:
@@ -17,7 +19,7 @@ jobs:
       - name: Get the version from tag
         id: get_version
         run: | 
-          echo ::set-output name=VERSION::${GITHUB_REF##*/:2}
+          echo ::set-output name=VERSION::${GITHUB_REF##*v}
 
       - name: Docker Login
         uses: Azure/docker-login@v1
@@ -32,7 +34,7 @@ jobs:
       - name: Build, set tag and push
         run: |
           docker build -t app2 .
-          docker tag app2:latest omegalab/test-ci-server:latest
+          docker tag app2:latest omegalab/test-ci-server:develop
           docker tag app2:latest omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
           docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
-          docker push omegalab/test-ci-server:latest
+          docker push omegalab/test-ci-server:develop

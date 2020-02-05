@@ -1,0 +1,38 @@
+name: Release build and push to Docker Hub
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Git clone repo
+        uses: actions/checkout@v1
+
+      - name: Get the version from tag
+        id: get_version
+        run: | 
+          echo ::set-output name=VERSION::${GITHUB_REF##*v}
+
+      - name: Docker Login
+        uses: Azure/docker-login@v1
+        with:
+          # Container registry username
+          username: ${{ secrets.DOCKER_USERNAME }}
+          # Container registry password
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          # Container registry server url
+          # login-server:
+
+      - name: Build, set tag and push
+        run: |
+          docker build -t app2 .
+          docker tag app2:latest omegalab/test-ci-server:latest
+          docker tag app2:latest omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
+          docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
+          docker push omegalab/test-ci-server:latest
