@@ -35,7 +35,7 @@ jobs:
       - name: Build, set tag and push
         run: |
           echo ${{ github.head_ref }} ${{ github.base_ref }}
-          # docker build -t app2 .
+        # docker build -t app2 .
           # docker tag app2:latest omegalab/test-ci-server:latest
           # docker tag app2:latest omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
           # docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
