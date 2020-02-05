@@ -29,10 +29,16 @@ jobs:
           # Container registry server url
           # login-server:
 
-      - name: Build, set tag and push
+      - name: Build image
         run: |
           docker build -t app2 .
+
+      - name: Set tags
+        run: |
           docker tag app2:latest omegalab/test-ci-server:develop
           docker tag app2:latest omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
+
+      - name: Push to Docker Hub
+        run: |
           docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
           docker push omegalab/test-ci-server:develop
