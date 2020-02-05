@@ -43,4 +43,3 @@ jobs:
         run: |
           docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
           docker push omegalab/test-ci-server:latest
-
