@@ -2,6 +2,8 @@ name: Release build and push to Docker Hub
 
 on:
   push:
+    branches:
+      - master
     tags:
       - 'v*'
       - '!v*-rc*'
