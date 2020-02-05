@@ -36,6 +36,6 @@ jobs:
           docker tag app2:latest omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
 
       - name: Push to Docker Hub
-          run: |
-            docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
-            docker push omegalab/test-ci-server:develop
+        run: |
+          docker push omegalab/test-ci-server:${{ steps.get_version.outputs.VERSION }}
+          docker push omegalab/test-ci-server:develop
